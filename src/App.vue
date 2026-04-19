@@ -4,6 +4,9 @@
       <div class="toolbar-section">
         <Toolbar />
       </div>
+      <div class="template-section">
+        <TemplatePanel />
+      </div>
       <div class="data-section">
         <DataPanel />
       </div>
@@ -18,6 +21,7 @@
 import { provide } from 'vue'
 import { graph, addNode, removeNode, addEdge, removeEdge, toggleDirected, clearGraph } from './composables/useGraph'
 import Toolbar from './components/Toolbar.vue'
+import TemplatePanel from './components/TemplatePanel.vue'
 import GraphCanvas from './components/GraphCanvas.vue'
 import DataPanel from './components/DataPanel.vue'
 
@@ -43,6 +47,12 @@ provide('graphActions', {
 }
 
 .toolbar-section {
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+  background: white;
+}
+
+.template-section {
   padding: 16px;
   border-bottom: 1px solid #ddd;
   background: white;
