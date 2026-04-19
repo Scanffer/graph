@@ -4,14 +4,20 @@ import { nanoid } from 'nanoid'
 
 export const graph = reactive({
   directed: false,
+  enableAddNode: true,
   nodes: [],
   edges: []
 })
 
 export function addNode(x, y) {
+  const existingLabels = graph.nodes.map(n => parseInt(n.label)).filter(n => !isNaN(n))
+  let nextLabel = 1
+  while (existingLabels.includes(nextLabel)) {
+    nextLabel++
+  }
   const newNode = {
     id: nanoid(6),
-    label: String(graph.nodes.length + 1),   // 改成纯数字字符串 "1", "2", ...
+    label: String(nextLabel),
     weight: 0,
     x, y
   }

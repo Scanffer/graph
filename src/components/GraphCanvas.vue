@@ -89,6 +89,8 @@ function initSVG() {
     const target = event.target
     if (target.closest('.node-group')) return
 
+    if (!graph.enableAddNode) return
+
     const [x, y] = d3.pointer(event)
     addNode(x, y)
   })
