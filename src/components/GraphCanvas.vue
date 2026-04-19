@@ -23,6 +23,7 @@ onMounted(() => {
   initSVG()
   render()
   watch(() => [graph.nodes, graph.edges], render, { deep: true })
+  watch(() => graph.directed, render)
   window.addEventListener('keydown', handleKeyDown)
 })
 
@@ -55,6 +56,34 @@ function handleKeyDown(e) {
 function initSVG() {
   svg = d3.select(svgRef.value)
   g = svg.append('g')
+
+  // 定义箭头 marker
+  const defs = svg.append('defs')
+  defs.append('marker')
+    .attr('id', 'arrowhead')
+    .attr('viewBox', '-0 -5 10 10')
+    .attr('refX', 6)
+    .attr('refY', 0)
+    .attr('orient', 'auto')
+    .attr('markerWidth', 6)
+    .attr('markerHeight', 6)
+    .attr('xoverflow', 'visible')
+    .append('svg:path')
+    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    .attr('fill', '#999')
+
+  defs.append('marker')
+    .attr('id', 'arrowhead-selected')
+    .attr('viewBox', '-0 -5 10 10')
+    .attr('refX', 6)
+    .attr('refY', 0)
+    .attr('orient', 'auto')
+    .attr('markerWidth', 6)
+    .attr('markerHeight', 6)
+    .attr('xoverflow', 'visible')
+    .append('svg:path')
+    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    .attr('fill', '#f00')
 
   svg.on('click', (event) => {
     const target = event.target
@@ -250,6 +279,7 @@ function render() {
         const pt = getEdgePoint(target.x, target.y, source.x, source.y, 18)
         return pt.y
     })
+    .attr('marker-end', d => graph.directed ? (d.id === selectedEdgeId ? 'url(#arrowhead-selected)' : 'url(#arrowhead)') : null)
     // 高亮时也改变视觉线的颜色（选中边）
     .attr('stroke', d => d.id === selectedEdgeId ? '#f00' : '#999')
     .attr('stroke-width', d => d.id === selectedEdgeId ? 4 : 2)
@@ -319,6 +349,7 @@ function updateEdges() {
       const pt = getEdgePoint(target.x, target.y, source.x, source.y, 18)
       return pt.y
     })
+    .attr('marker-end', d => graph.directed ? (d.id === selectedEdgeId ? 'url(#arrowhead-selected)' : 'url(#arrowhead)') : null)
 }
 </script>
 
