@@ -19,7 +19,7 @@
 
 <script setup>
 import { provide } from 'vue'
-import { graph, addNode, removeNode, addEdge, removeEdge, toggleDirected, clearGraph } from './composables/useGraph'
+import { graph, addNode, removeNode, addEdge, removeEdge, toggleDirected, clearGraph, applyRepulsion } from './composables/useGraph'
 import Toolbar from './components/Toolbar.vue'
 import TemplatePanel from './components/TemplatePanel.vue'
 import GraphCanvas from './components/GraphCanvas.vue'
@@ -27,7 +27,7 @@ import DataPanel from './components/DataPanel.vue'
 
 provide('graph', graph)
 provide('graphActions', {
-  addNode, removeNode, addEdge, removeEdge, toggleDirected, clearGraph
+  addNode, removeNode, addEdge, removeEdge, toggleDirected, clearGraph, applyRepulsion
 })
 </script>
 

@@ -15,6 +15,7 @@ import { inject } from 'vue'
 import { nanoid } from 'nanoid'
 
 const graph = inject('graph')
+const { applyRepulsion } = inject('graphActions')
 
 function generateSimple() {
   // 清空图
@@ -35,6 +36,9 @@ function generateSimple() {
     }
     graph.nodes.push(newNode)
   }
+  
+  // 应用斥力使节点分散
+  applyRepulsion()
   
   // 生成随机边（无重边无自环）
   const possibleEdges = []

@@ -22,6 +22,7 @@ import { inject, ref, watch } from 'vue'
 import { nanoid } from 'nanoid'
 
 const graph = inject('graph')
+const { applyRepulsion } = inject('graphActions')
 
 const nodesText = ref('')
 const edgesText = ref('')
@@ -59,6 +60,8 @@ function updateNodesFromText() {
       graph.nodes.push(newNode)
     }
   }
+  
+  applyRepulsion()
 }
 
 function updateEdgesFromText() {

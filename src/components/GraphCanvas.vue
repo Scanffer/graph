@@ -12,7 +12,7 @@ const containerRef = ref(null)
 const svgRef = ref(null)
 
 const graph = inject('graph')
-const { addNode, addEdge, removeNode, removeEdge } = inject('graphActions')
+const { addNode, addEdge, removeNode, removeEdge, applyRepulsion } = inject('graphActions')
 
 let svg, g
 let edgeSourceNode = null   // 连边起点 ID
@@ -93,6 +93,7 @@ function initSVG() {
 
     const [x, y] = d3.pointer(event)
     addNode(x, y)
+    applyRepulsion()
   })
 
   svg.on('contextmenu', (event) => {
@@ -158,6 +159,9 @@ function render() {
           .filter(node => node.id === d.id)
           .attr('transform', `translate(${d.x}, ${d.y})`)
         updateEdges()
+      })
+      .on('end', () => {
+        applyRepulsion()
       })
     )
     .on('contextmenu', (event, d) => {
