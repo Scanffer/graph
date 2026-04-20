@@ -19,6 +19,7 @@ export function addNode(x, y) {
     id: nanoid(6),
     label: String(nextLabel),
     weight: 0,
+    tag: '',
     x, y
   }
   graph.nodes.push(newNode)
@@ -31,7 +32,7 @@ export function removeNode(nodeId) {
   graph.edges = graph.edges.filter(e => e.source !== nodeId && e.target !== nodeId)
 }
 
-export function addEdge(sourceId, targetId, weight = 0) {
+export function addEdge(sourceId, targetId, weight = 0, tag = '') {
   const exists = graph.edges.some(e =>
     (e.source === sourceId && e.target === targetId) ||
     (!graph.directed && e.source === targetId && e.target === sourceId)
@@ -41,7 +42,8 @@ export function addEdge(sourceId, targetId, weight = 0) {
     id: nanoid(6),
     source: sourceId,
     target: targetId,
-    weight
+    weight,
+    tag
   }
   graph.edges.push(newEdge)
   return newEdge

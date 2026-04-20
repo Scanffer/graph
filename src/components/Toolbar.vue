@@ -16,6 +16,11 @@
         inactive-text="禁用"
       />
     </div>
+    <div class="toolbar-item">
+      <el-button type="danger" size="small" @click="clearGraph">
+        清空图
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -23,7 +28,7 @@
 import { inject } from 'vue'
 
 const graph = inject('graph')
-const { toggleDirected } = inject('graphActions')
+const { clearGraph } = inject('graphActions')
 </script>
 
 <style scoped>
